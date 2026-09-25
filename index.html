@@ -1,0 +1,2037 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>evidence-impact-added-map.html</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;max-width:736px;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe id="codex-visualization" sandbox="allow-scripts" scrolling="no" referrerpolicy="no-referrer" title="evidence-impact-added-map.html" data-srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en-US&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'&quot;&gt;
+&lt;title&gt;evidence-impact-added-map.html&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script type=&quot;application/json&quot; id=&quot;codex-visualization-widget-state&quot;&gt;__CODEX_VISUALIZATION_WIDGET_STATE__&lt;/script&gt;
+&lt;script&gt;(() =&gt; {
+  const root = document.documentElement;
+  const mediaQuery = globalThis.matchMedia(&quot;(prefers-color-scheme: dark)&quot;);
+  const apply = Reflect.apply;
+  const isArray = Array.isArray;
+  const hasOwn = Object.hasOwn;
+  const parentWindow = globalThis.parent;
+  const stringify = JSON.stringify;
+  const parse = JSON.parse;
+  const encode = TextEncoder.prototype.encode.bind(new TextEncoder());
+  const initialStateElement = document.getElementById(
+    &quot;codex-visualization-widget-state&quot;,
+  );
+  const initialGlobals = parse(initialStateElement?.textContent ?? &quot;{}&quot;);
+  initialStateElement?.remove();
+  /** @type {Record&lt;string, unknown&gt; | null} */
+  let state = initialGlobals.widgetState ?? null;
+  const statePersistence = initialGlobals.statePersistence ?? &quot;none&quot;;
+  let nextStateRequestId = 0;
+  /** @type {Map&lt;number, { resolve: () =&gt; void; reject: (error: Error) =&gt; void; timeout: ReturnType&lt;typeof globalThis.setTimeout&gt;; serializedState: string }&gt;} */
+  const pendingStateWrites = new Map();
+  const persistenceError = () =&gt;
+    Object.assign(
+      new Error(&quot;The host could not persist the widget state update&quot;),
+      {
+        code: -32000,
+        data: { code: &quot;widget_state_persistence_failed&quot;, retryable: false },
+      },
+    );
+  /**
+   * @param {object} prototype
+   * @param {string} property
+   */
+  const getPrototypeGetter = (prototype, property) =&gt; {
+    // oxlint-disable-next-line typescript/unbound-method -- invoked through captured Reflect.apply
+    const getter = Object.getOwnPropertyDescriptor(prototype, property)?.get;
+    if (getter == null) {
+      throw new Error(`Missing ${property} getter`);
+    }
+    return getter;
+  };
+  const getMessageData = getPrototypeGetter(MessageEvent.prototype, &quot;data&quot;);
+  const getMessagePorts = getPrototypeGetter(MessageEvent.prototype, &quot;ports&quot;);
+  const getMessageSource = getPrototypeGetter(MessageEvent.prototype, &quot;source&quot;);
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const addHostMessageListener = MessagePort.prototype.addEventListener;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const postHostMessage = MessagePort.prototype.postMessage;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const startHostPort = MessagePort.prototype.start;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const stopMessagePropagation = Event.prototype.stopImmediatePropagation;
+  /** @type {MessagePort | null} */
+  let hostPort = null;
+  const postToHost = (type, payload) =&gt; {
+    if (hostPort != null) {
+      apply(postHostMessage, hostPort, [{ type, ...payload }]);
+    }
+  };
+  const openExternal = ({ href }) =&gt; {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost(&quot;open-external&quot;, { href });
+    }
+  };
+  const sendFollowUpMessage = ({ context, prompt, title }) =&gt; {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost(&quot;follow-up&quot;, { context, prompt, title });
+    }
+    return Promise.resolve();
+  };
+  /**
+   * @param {Record&lt;string, unknown&gt; | ((previous: Record&lt;string, unknown&gt; | null) =&gt; Record&lt;string, unknown&gt;)} next
+   * @returns {Promise&lt;void&gt;}
+   */
+  const setWidgetState = async (next) =&gt; {
+    const nextState = typeof next === &quot;function&quot; ? next(state) : next;
+    if (
+      nextState == null ||
+      typeof nextState !== &quot;object&quot; ||
+      isArray(nextState)
+    ) {
+      throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+    }
+    const inputState = stringify(
+      nextState,
+      (_key, /** @type {unknown} */ value) =&gt; {
+        if (
+          typeof value === &quot;undefined&quot; ||
+          typeof value === &quot;function&quot; ||
+          typeof value === &quot;symbol&quot; ||
+          (typeof value === &quot;number&quot; &amp;&amp; !Number.isFinite(value))
+        ) {
+          throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+        }
+        return value;
+      },
+    );
+    const parsedState = parse(inputState);
+    if (
+      parsedState == null ||
+      typeof parsedState !== &quot;object&quot; ||
+      isArray(parsedState)
+    ) {
+      throw new TypeError(&quot;Widget state must be a JSON object&quot;);
+    }
+    const storedState = {
+      modelContent: null,
+      privateContent: null,
+      ...parsedState,
+    };
+    const serializedState = stringify(storedState);
+    if (encode(serializedState).length &gt; 16 * 1024) {
+      throw new TypeError(
+        &quot;Widget state must be a JSON object of at most 16 KiB&quot;,
+      );
+    }
+    if (
+      hasOwn(storedState, &quot;imageIds&quot;) &amp;&amp;
+      (!isArray(storedState.imageIds) ||
+        storedState.imageIds.some(
+          (/** @type {unknown} */ id) =&gt; typeof id !== &quot;string&quot;,
+        ))
+    ) {
+      throw new TypeError(&quot;Widget state imageIds must be an array of strings&quot;);
+    }
+    if (storedState.imageIds?.length &gt; 0) {
+      throw Object.assign(
+        new TypeError(&quot;Visualization state does not support image attachments&quot;),
+        { code: -32602, data: { code: &quot;images_unsupported&quot; } },
+      );
+    }
+    state = storedState;
+    globalThis.openai.widgetState = state;
+    globalThis.dispatchEvent(
+      new CustomEvent(&quot;openai:set_globals&quot;, {
+        detail: { globals: { widgetState: state } },
+      }),
+    );
+    if (statePersistence === &quot;none&quot;) {
+      throw persistenceError();
+    }
+    const id = ++nextStateRequestId;
+    return new Promise((resolve, reject) =&gt; {
+      const timeout = globalThis.setTimeout(() =&gt; {
+        pendingStateWrites.delete(id);
+        reject(persistenceError());
+      }, 30_000);
+      pendingStateWrites.set(id, { resolve, reject, timeout, serializedState });
+      postToHost(&quot;widget-state-write&quot;, { id, state: serializedState });
+    });
+  };
+  const syncTheme = () =&gt; {
+    const theme = mediaQuery.matches ? &quot;dark&quot; : &quot;light&quot;;
+    root.dataset.theme = theme;
+    globalThis.openai = {
+      ...globalThis.openai,
+      openExternal,
+      sendFollowUpMessage,
+      setWidgetState,
+      theme,
+      visualizationStyleVariables: {},
+      visualizationTheme: theme,
+      widgetState: state,
+      statePersistence,
+      stateModelContext: &quot;none&quot;,
+    };
+    globalThis.dispatchEvent(
+      new CustomEvent(&quot;openai:set_globals&quot;, {
+        detail: { globals: globalThis.openai },
+      }),
+    );
+  };
+  const sendHeight = () =&gt; {
+    postToHost(&quot;height&quot;, {
+      height: Math.ceil(
+        Math.max(
+          document.body.scrollHeight,
+          document.body.getBoundingClientRect().height,
+        ),
+      ),
+    });
+  };
+
+  globalThis.addEventListener(
+    &quot;message&quot;,
+    (event) =&gt; {
+      const data = apply(getMessageData, event, []);
+      const ports = apply(getMessagePorts, event, []);
+      const source = apply(getMessageSource, event, []);
+      if (
+        hostPort != null ||
+        source !== parentWindow ||
+        typeof data !== &quot;object&quot; ||
+        data?.type !== &quot;codex-visualization-initialize&quot; ||
+        !isArray(ports) ||
+        ports.length !== 1
+      ) {
+        return;
+      }
+      apply(stopMessagePropagation, event, []);
+      const nextHostPort = ports[0];
+      try {
+        apply(addHostMessageListener, nextHostPort, [
+          &quot;message&quot;,
+          (event) =&gt; {
+            const data = apply(getMessageData, event, []);
+            if (typeof data === &quot;object&quot; &amp;&amp; data?.type === &quot;measure&quot;) {
+              sendHeight();
+            } else if (
+              typeof data === &quot;object&quot; &amp;&amp;
+              data?.type === &quot;widget-state-result&quot;
+            ) {
+              /** @type {unknown} */
+              const id = data.id;
+              if (typeof id !== &quot;number&quot;) {
+                return;
+              }
+              const pending = pendingStateWrites.get(id);
+              if (pending != null) {
+                pendingStateWrites.delete(id);
+                globalThis.clearTimeout(pending.timeout);
+                if (data.ok === true) {
+                  pending.resolve();
+                } else {
+                  pending.reject(persistenceError());
+                }
+              }
+            }
+          },
+        ]);
+        apply(startHostPort, nextHostPort, []);
+      } catch {
+        return;
+      }
+      hostPort = nextHostPort;
+      for (const [id, { serializedState }] of pendingStateWrites) {
+        postToHost(&quot;widget-state-write&quot;, { id, state: serializedState });
+      }
+      sendHeight();
+    },
+    { capture: true },
+  );
+  document.currentScript?.remove();
+  mediaQuery.addEventListener(&quot;change&quot;, syncTheme);
+  globalThis.addEventListener(&quot;click&quot;, (event) =&gt; {
+    if (event.defaultPrevented) {
+      return;
+    }
+    let element = null;
+    if (event.target instanceof globalThis.Element) {
+      element = event.target;
+    } else if (event.target instanceof globalThis.Node) {
+      element = event.target.parentElement;
+    }
+    const link = element?.closest(&quot;a[href]&quot;);
+    const href = link?.getAttribute(&quot;href&quot;);
+    if (href == null) {
+      return;
+    }
+    if (href.startsWith(&quot;#&quot;)) {
+      let id;
+      try {
+        id = decodeURIComponent(href.slice(1));
+      } catch {
+        return;
+      }
+      const target = id.length === 0 ? root : document.getElementById(id);
+      if (
+        target == null ||
+        globalThis.navigator.userActivation?.isActive !== true
+      ) {
+        return;
+      }
+      event.preventDefault();
+      postToHost(&quot;scroll-to&quot;, {
+        top: target.getBoundingClientRect().top + globalThis.scrollY,
+      });
+      return;
+    }
+    event.preventDefault();
+    openExternal({ href });
+  });
+  new ResizeObserver(sendHeight).observe(document.body);
+  syncTheme();
+})();
+&lt;/script&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --icon-size: 16px;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --corner-shape: round;
+  --radius: var(--border-radius-lg, 10px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: var(--visualize-paint-gutter, 0px);
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+.cursor-interaction {
+  cursor: var(--cursor-interaction, pointer);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: var(--cursor-interaction, pointer);
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: var(--corner-shape);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  margin-block: 6px;
+  border: 0;
+  background: var(--border);
+}
+
+.nav {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress {
+  display: flex;
+  height: 8px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 8px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar:only-child {
+  border-radius: var(--radius-full);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.nav-link,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn,
+.nav-link {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: var(--cursor-interaction, pointer);
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover,
+.nav-link:not(:disabled):not([aria-disabled=&quot;true&quot;]):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.nav-pills .nav-link {
+  min-width: 0;
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.nav-justified .nav-link {
+  flex: 1 1 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.nav-pills .nav-link.active {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+.btn:disabled,
+.nav-link:disabled,
+.nav-link[aria-disabled=&quot;true&quot;] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: var(--corner-shape);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  .btn,
+  .nav-link,
+  .form-control,
+  .form-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Keep small-screen WebKit from zooming when a text field receives focus. */
+  .form-control,
+  .form-select {
+    font-size: max(16px, var(--font-size-normal));
+  }
+
+  .form-control[type=&quot;file&quot;]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type=&quot;color&quot;] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type=&quot;date&quot;],
+    [type=&quot;datetime-local&quot;],
+    [type=&quot;month&quot;],
+    [type=&quot;time&quot;],
+    [type=&quot;week&quot;]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: &quot;&quot;;
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+
+  .form-range::-webkit-slider-runnable-track {
+    height: 44px;
+  }
+
+  .form-range::-moz-range-track {
+    height: 44px;
+  }
+
+  .form-range::-webkit-slider-thumb {
+    margin-top: 12px;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;style id=&quot;codex-visualization-host-theme&quot;&gt;:root {}&lt;/style&gt;
+&lt;script&gt;
+(() =&gt; {
+  // Host colors are defaults; later authored styles can give the same names
+  // their own meaning (for example, --muted as a chart's label color).
+  const hostStyles = document.getElementById(&quot;codex-visualization-host-theme&quot;);
+  const hostStyle = hostStyles.sheet.cssRules[0].style;
+  // Typography, geometry and interaction cursors still follow the host.
+  const styleForProperty = (property) =&gt;
+    /^--(?:font-|radius|corner-shape$|cursor-interaction$|icon-size$|visualize-paint-gutter$)/.test(property)
+      ? document.documentElement.style
+      : hostStyle;
+  const initialGlobals =
+    globalThis.__codexVisualizationInitialGlobals ?? globalThis.openai;
+  delete globalThis.__codexVisualizationInitialGlobals;
+  if (initialGlobals?.statePersistence != null) {
+    globalThis.openai ??= {};
+    globalThis.openai.statePersistence = initialGlobals.statePersistence;
+    globalThis.openai.stateModelContext = initialGlobals.stateModelContext ?? &quot;none&quot;;
+  }
+  let appliedProperties = [];
+  const applyHostStyleVariables = (styleVariables) =&gt; {
+    if (styleVariables == null || typeof styleVariables !== &quot;object&quot;) {
+      return;
+    }
+    for (const property of appliedProperties) {
+      styleForProperty(property).removeProperty(property);
+    }
+    appliedProperties = [];
+    for (const [property, value] of Object.entries(styleVariables)) {
+      if (property.startsWith(&quot;--&quot;) &amp;&amp; typeof value === &quot;string&quot;) {
+        styleForProperty(property).setProperty(property, value);
+        appliedProperties.push(property);
+      }
+    }
+  };
+
+  const syncHostStyles = (globals) =&gt; {
+    applyHostStyleVariables(globals?.visualizationStyleVariables);
+    const sandboxDocument = globalThis.frameElement?.ownerDocument;
+    if (sandboxDocument != null &amp;&amp; globals?.visualizationTheme != null) {
+      let colorSchemeMeta = sandboxDocument.querySelector(
+        'meta[name=&quot;color-scheme&quot;]',
+      );
+      if (colorSchemeMeta == null) {
+        colorSchemeMeta = sandboxDocument.createElement(&quot;meta&quot;);
+        colorSchemeMeta.name = &quot;color-scheme&quot;;
+        sandboxDocument.head.appendChild(colorSchemeMeta);
+      }
+      colorSchemeMeta.content = globals.visualizationTheme;
+      sandboxDocument.documentElement.style.colorScheme =
+        globals.visualizationTheme;
+      // Paint the host surface behind transparent saved visualization documents.
+      sandboxDocument.documentElement.style.backgroundColor =
+        hostStyle.getPropertyValue(&quot;--background&quot;);
+    }
+  };
+
+  syncHostStyles(initialGlobals);
+  globalThis.addEventListener(&quot;openai:set_globals&quot;, (event) =&gt; {
+    syncHostStyles(event.detail?.globals);
+  });
+})();
+&lt;/script&gt;
+
+
+
+&lt;div id=&quot;evidence-impact-added&quot;&gt;
+  &lt;h2&gt;Evidence reliability and climate-change contribution&lt;/h2&gt;
+  &lt;div class=&quot;viz-controls&quot; aria-label=&quot;Contribution view&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; id=&quot;added-view&quot; aria-pressed=&quot;true&quot;&gt;Activity-added · additive&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;cumulative-view&quot; aria-pressed=&quot;false&quot;&gt;Cumulative branch · overlapping&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;viz-row text-small text-muted legend&quot; aria-label=&quot;Source legend&quot;&gt;
+    &lt;span&gt;&lt;i class=&quot;dot company&quot;&gt;&lt;/i&gt;Company data&lt;/span&gt;&lt;span&gt;&lt;i class=&quot;dot patent&quot;&gt;&lt;/i&gt;Patent&lt;/span&gt;
+    &lt;span&gt;&lt;i class=&quot;dot academic&quot;&gt;&lt;/i&gt;Academic paper&lt;/span&gt;&lt;span&gt;&lt;i class=&quot;dot lca&quot;&gt;&lt;/i&gt;LCA study&lt;/span&gt;
+    &lt;span&gt;&lt;i class=&quot;dot weak&quot;&gt;&lt;/i&gt;Estimate, stoichiometry or incomplete&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;reconcile card&quot; id=&quot;reconcile&quot;&gt;&lt;strong&gt;Reconciliation passed&lt;/strong&gt; · 58 activity-added contributions = 30,585.321 kg CO₂-eq · difference &amp;lt; 0.000001 kg CO₂-eq&lt;/div&gt;
+  &lt;div id=&quot;added-chart&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;added-detail&quot; class=&quot;card text-small&quot; aria-live=&quot;polite&quot;&gt;Select a bubble to inspect the activity, evidence code and largest immediate impact source.&lt;/div&gt;
+  &lt;p class=&quot;text-small text-muted&quot; id=&quot;view-note&quot;&gt;Activity-added contributions allocate each immediate background input and direct emission to the foreground activity where it enters. The 58 values are additive and reconcile to the final HTP10 result.&lt;/p&gt;
+&lt;/div&gt;
+&lt;style&gt;
+#evidence-impact-added{width:100%}#evidence-impact-added h2{margin-bottom:8px}#evidence-impact-added .viz-controls{margin-bottom:8px}
+#evidence-impact-added .legend{gap:14px;margin:6px 0 8px}#evidence-impact-added .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+#evidence-impact-added .company{background:var(--viz-series-1)}#evidence-impact-added .patent{background:var(--viz-series-2)}#evidence-impact-added .academic{background:var(--viz-series-3)}#evidence-impact-added .lca{background:var(--viz-series-5)}#evidence-impact-added .weak{background:var(--viz-series-4)}
+#evidence-impact-added .reconcile{margin-bottom:8px}#evidence-impact-added svg{width:100%;display:block}#evidence-impact-added .axis text,#evidence-impact-added .point-label{fill:var(--foreground);font-size:12px}
+#evidence-impact-added .axis path,#evidence-impact-added .axis line{stroke:var(--border)}#evidence-impact-added .grid line{stroke:var(--border);stroke-opacity:.4}#evidence-impact-added .grid path{display:none}
+#evidence-impact-added .priority{fill:var(--destructive);opacity:.055}#evidence-impact-added .threshold{stroke:var(--destructive);stroke-width:1;stroke-dasharray:4 4}
+#evidence-impact-added .bubble{stroke:var(--background);stroke-width:1.5;opacity:.84}#evidence-impact-added .bubble:focus{stroke:var(--ring);stroke-width:3;outline:none}
+#evidence-impact-added .point-label{font-size:11px;pointer-events:none}#evidence-impact-added .axis-title{fill:var(--foreground);font-size:12px;font-weight:500}#evidence-impact-added .priority-note{fill:var(--destructive);font-size:11px;font-weight:500}
+#evidence-impact-added #added-detail{margin-top:10px}
+&lt;/style&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(()=&gt;{const root=document.getElementById('evidence-impact-added'),host=document.getElementById('added-chart'),detail=document.getElementById('added-detail'),note=document.getElementById('view-note'),reconcile=document.getElementById('reconcile');
+const data=[{&quot;n&quot;:3,&quot;name&quot;:&quot;HTP 05 (in toluene)&quot;,&quot;added&quot;:11.055730013397467,&quot;kg&quot;:3381.4305215123663,&quot;cum&quot;:90.77801140540622,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1/HTP05;HTP03-05_BS2210SA01&quot;,&quot;top&quot;:&quot;market for palladium | palladium | Cutoff, U&quot;},{&quot;n&quot;:30,&quot;name&quot;:&quot;Triethylamine hydrochloride&quot;,&quot;added&quot;:8.010296479180655,&quot;kg&quot;:2449.9748970209166,&quot;cum&quot;:8.010296479180724,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2021-0FS0-N2-PROXY-BASE@CN112299938A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:4,&quot;name&quot;:&quot;HTP02.1&quot;,&quot;added&quot;:6.131819701556067,&quot;kg&quot;:1875.4367433110642,&quot;cum&quot;:25.453062470394666,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1/Tether-T465F+T465;HTP03-05_BS2210SA01&quot;,&quot;top&quot;:&quot;market for tetrahydrofuran | tetrahydrofuran | Cutoff, U&quot;},{&quot;n&quot;:35,&quot;name&quot;:&quot;HTP 08&quot;,&quot;added&quot;:5.413446704896014,&quot;kg&quot;:1655.7200557840574,&quot;cum&quot;:99.26426146762512,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1/HTP08;BS2303SA01&quot;,&quot;top&quot;:&quot;market for palladium | palladium | Cutoff, U&quot;},{&quot;n&quot;:18,&quot;name&quot;:&quot;FMOC-Orn(BOC)-Lys(BOC)-OH&quot;,&quot;added&quot;:5.046276085710865,&quot;kg&quot;:1543.4197430221939,&quot;cum&quot;:14.617583678792867,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:26,&quot;name&quot;:&quot;trimethylsilyl N,N-dimesylamidosulfonate&quot;,&quot;added&quot;:4.8840857492277845,&quot;kg&quot;:1493.8133078601875,&quot;cum&quot;:4.884085749227786,&quot;family&quot;:&quot;Academic experimental paper&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;A-LAB-0-N2-PROXY-BASE@10.1080/10426509508027931&quot;,&quot;top&quot;:&quot;market for dichloromethane | dichloromethane | Cutoff, U&quot;},{&quot;n&quot;:13,&quot;name&quot;:&quot;N-(9-Fluorenylmethoxycarbonyloxy)succinimidet&quot;,&quot;added&quot;:3.864711359270527,&quot;kg&quot;:1182.0343777603684,&quot;cum&quot;:5.371074714633941,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2026-0F00-N2-PROXY-BASE@CN121318814A&quot;,&quot;top&quot;:&quot;market for chloroform | chloroform | Cutoff, U&quot;},{&quot;n&quot;:55,&quot;name&quot;:&quot;Methyl 2-[(3-bromo-2-formylphenyl)sulfanyl]pyridine-3-carboxylate&quot;,&quot;added&quot;:3.5461021719728243,&quot;kg&quot;:1084.5867348587103,&quot;cum&quot;:3.5461021719728194,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2019-QFS0-N4-PROXY-BASE@WO2019206853A1&quot;,&quot;top&quot;:&quot;market for N,N-dimethylformamide | N,N-dimethylformamide | Cutoff, U&quot;},{&quot;n&quot;:1,&quot;name&quot;:&quot;HTP 02 (in toluene)&quot;,&quot;added&quot;:3.37278394022356,&quot;kg&quot;:1031.576797200924,&quot;cum&quot;:35.22825632165382,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1/HTP02;HTP02_BS2210SA01&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:10,&quot;name&quot;:&quot;H-NBS-N-Me-Trp(Boc)-OAll&quot;,&quot;added&quot;:3.042260786548434,&quot;kg&quot;:930.4852294302547,&quot;cum&quot;:4.552565005238821,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1&quot;,&quot;top&quot;:&quot;market for ethyl acetate | ethyl acetate | Cutoff, U&quot;},{&quot;n&quot;:29,&quot;name&quot;:&quot;Cyclohexylamine&quot;,&quot;added&quot;:3.0129974277281115,&quot;kg&quot;:921.5349371784453,&quot;cum&quot;:3.012997427728114,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2023-0FS0-N2-PROXY-BASE@US20230357125A1&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:56,&quot;name&quot;:&quot;Ethyl 2-[3-bromo-2-[(tert-butylsulfinylimino)methyl]phenyl]sulfanylpyridine-3-carboxylate&quot;,&quot;added&quot;:2.796694970567775,&quot;kg&quot;:855.3781361681322,&quot;cum&quot;:6.342797142540651,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2019-QFS0-N3-PROXY-BASE@WO2019206853A1&quot;,&quot;top&quot;:&quot;market for tetrahydrofuran | tetrahydrofuran | Cutoff, U&quot;},{&quot;n&quot;:57,&quot;name&quot;:&quot;N-[[2-bromo-6-[[3-(hydroxymethyl)-2-pyridyl]sulfanyl]phenyl]methyl]-2-methylpropane-2-sulfinamide&quot;,&quot;added&quot;:2.676516178001744,&quot;kg&quot;:818.6210666006925,&quot;cum&quot;:9.019313320542437,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2019-QFS0-N2-PROXY-BASE@WO2019206853A1&quot;,&quot;top&quot;:&quot;market for tetrahydrofuran | tetrahydrofuran | Cutoff, U&quot;},{&quot;n&quot;:25,&quot;name&quot;:&quot;Sulfur trioxide-pyridine&quot;,&quot;added&quot;:2.564923345203062,&quot;kg&quot;:784.4900403952569,&quot;cum&quot;:7.449009094430845,&quot;family&quot;:&quot;Academic experimental paper&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;A-LAB-I-1-PROXY-BASE@10.1080/10426509508027931&quot;,&quot;top&quot;:&quot;market for dichloromethane | dichloromethane | Cutoff, U&quot;},{&quot;n&quot;:21,&quot;name&quot;:&quot;HTP-Fmoc-tripeptide&quot;,&quot;added&quot;:2.236473861263949,&quot;kg&quot;:684.0327111713316,&quot;cum&quot;:25.784584864659017,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:33,&quot;name&quot;:&quot;1-Ethyl-3-(3'-dimethylaminopropyl)carbodiimide&quot;,&quot;added&quot;:2.0540173073187886,&quot;kg&quot;:628.227788329286,&quot;cum&quot;:2.054017307318788,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2016-QFS0-N2-PROXY-BASE@CN104193654B&quot;,&quot;top&quot;:&quot;market for dichloromethane | dichloromethane | Cutoff, U&quot;},{&quot;n&quot;:2,&quot;name&quot;:&quot;Dipotassium phosphate&quot;,&quot;added&quot;:1.9919063318994334,&quot;kg&quot;:609.230947075981,&quot;cum&quot;:1.9919063318994223,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-GEN-2011-0FSC-1-PROXY-BASE@CN102249204A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:22,&quot;name&quot;:&quot;HTP-tripeptide hemiphosphate ex 3rd SUC&quot;,&quot;added&quot;:1.8948786076084931,&quot;kg&quot;:579.5547060722041,&quot;cum&quot;:29.863566049530583,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:11,&quot;name&quot;:&quot;N-Me-Trp(Boc)-OAl&quot;,&quot;added&quot;:1.8306987437699596,&quot;kg&quot;:559.9250886532604,&quot;cum&quot;:6.904264685930815,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:58,&quot;name&quot;:&quot;[2-[2-(Aminomethyl)-3-bromophenyl]sulfanyl-3-pyridyl]methanol hydrochloride&quot;,&quot;added&quot;:1.7811800989666757,&quot;kg&quot;:544.7796521493983,&quot;cum&quot;:10.800493419509111,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2019-QF00-1-PROXY-BASE@WO2019206853A1&quot;,&quot;top&quot;:&quot;market for tetrahydrofuran | tetrahydrofuran | Cutoff, U&quot;},{&quot;n&quot;:40,&quot;name&quot;:&quot;2-Aminothiazoline-4-carboxylic acid&quot;,&quot;added&quot;:1.7518433193280534,&quot;kg&quot;:535.8069039045779,&quot;cum&quot;:2.243945372911188,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2021-QFS0-N5-PROXY-BASE@CN112358426A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:32,&quot;name&quot;:&quot;1,3-Propanediamine, N'-(ethylcarbonimidoyl)-N,N-dimethyl-, monohydrochloride&quot;,&quot;added&quot;:1.3630188891114503,&quot;kg&quot;:416.8837035143,&quot;cum&quot;:10.198406738347005,&quot;family&quot;:&quot;Incomplete patent reference&quot;,&quot;status&quot;:&quot;partial_or_invalid&quot;,&quot;code&quot;:&quot;partial: P-LAB-????-QFSC-1-PROXY-BASE@&lt;publication no.&gt;&quot;,&quot;top&quot;:&quot;market for acetonitrile | acetonitrile | Cutoff, U&quot;},{&quot;n&quot;:39,&quot;name&quot;:&quot;Thiazolidine-2-thione-4-carboxylic acid&quot;,&quot;added&quot;:1.3489768327085345,&quot;kg&quot;:412.588895478279,&quot;cum&quot;:3.592922205619736,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2021-QFS0-N4-PROXY-BASE@CN112358426A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:27,&quot;name&quot;:&quot;Sodium triacetoxyborohydride&quot;,&quot;added&quot;:1.3020463508946538,&quot;kg&quot;:398.2350569346069,&quot;cum&quot;:1.3020463508946505,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2008-0FSC-1-PROXY-BASE@WO2008068625A2&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:6,&quot;name&quot;:&quot;L-Tryptophan&quot;,&quot;added&quot;:1.1926355696514495,&quot;kg&quot;:364.7714182033829,&quot;cum&quot;:1.1926355696514477,&quot;family&quot;:&quot;Dedicated LCA study&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;L-IND-0-PRIM-BASE@10.3389/frsus.2022.863914&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:17,&quot;name&quot;:&quot;Fmoc-Orn(Boc)-OSu&quot;,&quot;added&quot;:1.171406005853735,&quot;kg&quot;:358.2782879535492,&quot;cum&quot;:9.081244110954081,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1&quot;,&quot;top&quot;:&quot;market for isopropanol | isopropanol | Cutoff, U&quot;},{&quot;n&quot;:54,&quot;name&quot;:&quot;1,3-Dimethyl-2-imidazolidinone (to verify)&quot;,&quot;added&quot;:0.933943707833512,&quot;kg&quot;:285.6496816777982,&quot;cum&quot;:0.9339437078335203,&quot;family&quot;:&quot;Unresolved&quot;,&quot;status&quot;:&quot;unresolved&quot;,&quot;code&quot;:&quot;unresolved: no source in the file, online search found nothing&quot;,&quot;top&quot;:&quot;market for dimethyl carbonate | dimethyl carbonate | Cutoff, U&quot;},{&quot;n&quot;:12,&quot;name&quot;:&quot;fmoc-orn(boc)-oh&quot;,&quot;added&quot;:0.9031218043666711,&quot;kg&quot;:276.22270354179216,&quot;cum&quot;:7.591033808361085,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2017-0FS0-1-PROXY-BASE@US20170355667A1&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:14,&quot;name&quot;:&quot;N-Hydroxysuccinimide&quot;,&quot;added&quot;:0.889630692195674,&quot;kg&quot;:272.0964035680342,&quot;cum&quot;:0.8896306921956775,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2007-QFS0-1-PROXY-BASE@EP1757583A1&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:34,&quot;name&quot;:&quot;HTP 06&quot;,&quot;added&quot;:0.8722686465292953,&quot;kg&quot;:266.78616615620876,&quot;cum&quot;:91.65028005193543,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1/HTP06;HTP06_BS2301SA01-p23&quot;,&quot;top&quot;:&quot;market for acetonitrile | acetonitrile | Cutoff, U&quot;},{&quot;n&quot;:31,&quot;name&quot;:&quot;1-Hydroxybenzotriazole&quot;,&quot;added&quot;:0.8487568604953379,&quot;kg&quot;:259.59501090783095,&quot;cum&quot;:0.848756860495335,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-1999-QFS0-1-PROXY-BASE@US5998628A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:20,&quot;name&quot;:&quot;N-N-Me-Trp(Boc)-OAllkkkkk&quot;,&quot;added&quot;:0.776458335339968,&quot;kg&quot;:237.4822748583396,&quot;cum&quot;:7.680723021270834,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:36,&quot;name&quot;:&quot;N-Acetyl-L-Cysteine&quot;,&quot;added&quot;:0.7703882759805244,&quot;kg&quot;:235.62572771395915,&quot;cum&quot;:5.722731344957867,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2019-0FS0-1-PROXY-BASE@CN109705008A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:7,&quot;name&quot;:&quot;L-Tryptophan, ethyl ester, hydrochloride (1:1)&quot;,&quot;added&quot;:0.7612857155711953,&quot;kg&quot;:232.84168038694264,&quot;cum&quot;:1.1195703233243026,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2018-QF00-1-PROXY-BASE@CN105037240B&quot;,&quot;top&quot;:&quot;market for 1,1,1-trichloroethane | 1,1,1-trichloroethane | Cutoff, U&quot;},{&quot;n&quot;:38,&quot;name&quot;:&quot;L-(+)-Cysteine&quot;,&quot;added&quot;:0.7518906719892073,&quot;kg&quot;:229.96817614248522,&quot;cum&quot;:4.34481287760894,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2021-QF00-N3-PROXY-BASE@CN112358426A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:15,&quot;name&quot;:&quot;9-Fluorenylmethyl chloroformate&quot;,&quot;added&quot;:0.6531659957513934,&quot;kg&quot;:199.7729169373101,&quot;cum&quot;:0.6531659957513928,&quot;family&quot;:&quot;Incomplete patent reference&quot;,&quot;status&quot;:&quot;partial_or_invalid&quot;,&quot;code&quot;:&quot;partial: P?-LAB-????-QFS0-N3-PROXY-BASE@&lt;true source&gt;&quot;,&quot;top&quot;:&quot;market for tetrahydrofuran | tetrahydrofuran | Cutoff, U&quot;},{&quot;n&quot;:37,&quot;name&quot;:&quot;L-Cysteine hydrochloride monohydrate&quot;,&quot;added&quot;:0.6075301913684114,&quot;kg&quot;:185.81505964273222,&quot;cum&quot;:4.952343068977338,&quot;family&quot;:&quot;Stoichiometry only&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;T-B-N2-PROXY-BASE&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:45,&quot;name&quot;:&quot;Tolylboronic acid&quot;,&quot;added&quot;:0.5710653544203992,&quot;kg&quot;:174.6621721835993,&quot;cum&quot;:0.5952453154102326,&quot;family&quot;:&quot;Academic experimental paper&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;A-LAB-I-N3-PROXY-BASE@10.1016/j.ejmech.2015.09.034&quot;,&quot;top&quot;:&quot;market for tetrahydrofuran | tetrahydrofuran | Cutoff, U&quot;},{&quot;n&quot;:5,&quot;name&quot;:&quot;Fmoc-Osu&quot;,&quot;added&quot;:0.5363763711595511,&quot;kg&quot;:164.05243527646428,&quot;cum&quot;:1.0717402548987092,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2026-QFS0-1-PROXY-BASE@CN121318814A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:23,&quot;name&quot;:&quot;triphosgene (BTC)&quot;,&quot;added&quot;:0.5225048727102481,&quot;kg&quot;:159.80979293817057,&quot;cum&quot;:0.5225048727102477,&quot;family&quot;:&quot;Academic experimental paper&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;A-LAB-N2-PROXY-BASE@10.1080/00397919308012605&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:49,&quot;name&quot;:&quot;HTP 09&quot;,&quot;added&quot;:0.49794973555957217,&quot;kg&quot;:152.29952540083028,&quot;cum&quot;:99.76221120318404,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1/HTP09;HTP09_BS2305SA01&quot;,&quot;top&quot;:&quot;market for acetone, liquid | acetone, liquid | Cutoff, U&quot;},{&quot;n&quot;:28,&quot;name&quot;:&quot;Dicyclohexylamine&quot;,&quot;added&quot;:0.4969129905853745,&quot;kg&quot;:151.98243362176837,&quot;cum&quot;:4.42297576007939,&quot;family&quot;:&quot;Academic experimental paper&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;A-LAB-I-1-PROXY-BASE@10.1080/00397919308011255&quot;,&quot;top&quot;:&quot;market for sodium tetrahydridoborate | sodium tetrahydridoborate | Cutoff, U&quot;},{&quot;n&quot;:16,&quot;name&quot;:&quot;L-(-)-Ornithine (usa L-Triptophan)&quot;,&quot;added&quot;:0.48248632746211745,&quot;kg&quot;:147.5699923854644,&quot;cum&quot;:1.1287690245173716,&quot;family&quot;:&quot;Analogy or expert estimate&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;E-0-N2-PROXY-BASE&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:52,&quot;name&quot;:&quot;Sodium benzenethiolate&quot;,&quot;added&quot;:0.4684953830284327,&quot;kg&quot;:143.29081710933923,&quot;cum&quot;:0.5210009369221075,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2013-Q0S0-1-PROXY-BASE@WO2013163321A1&quot;,&quot;top&quot;:&quot;market for ethylene glycol diethyl ether | ethylene glycol diethyl ether | Cutoff, U&quot;},{&quot;n&quot;:41,&quot;name&quot;:&quot;2,3-Dichloropropionic acid&quot;,&quot;added&quot;:0.3836378272253391,&quot;kg&quot;:117.33686121264114,&quot;cum&quot;:0.4921020535831401,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2021-0FS0-N6-PROXY-BASE@CN112358426A&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:9,&quot;name&quot;:&quot;H-L-Trp-oall hcl&quot;,&quot;added&quot;:0.3411646576193083,&quot;kg&quot;:104.34630591894606,&quot;cum&quot;:1.460734980943614,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:reaction-sheet-L-Trp-OAll-HCl&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:24,&quot;name&quot;:&quot;N-hydroxysuccinimide (NHS)&quot;,&quot;added&quot;:0.29522997518450833,&quot;kg&quot;:90.29703581260428,&quot;cum&quot;:0.2952299751845085,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2020-0FSC-N2-PROXY-BASE@CN111056984A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:8,&quot;name&quot;:&quot;L-Lysine monohydrochloride&quot;,&quot;added&quot;:0.2570915125807206,&quot;kg&quot;:78.63226457309973,&quot;cum&quot;:0.2570915125807202,&quot;family&quot;:&quot;Dedicated LCA study&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;L-IND-PROXY-BASE@10.1016/j.cej.2025.162972&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:51,&quot;name&quot;:&quot;HTP10&quot;,&quot;added&quot;:0.2377887968153682,&quot;kg&quot;:72.72846698054414,&quot;cum&quot;:100.0,&quot;family&quot;:&quot;Unresolved&quot;,&quot;status&quot;:&quot;unresolved&quot;,&quot;code&quot;:&quot;unresolved: no source anywhere in the file&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:19,&quot;name&quot;:&quot;H-Lys(BOC)-OH&quot;,&quot;added&quot;:0.2329719695471895,&quot;kg&quot;:71.25522489506135,&quot;cum&quot;:0.49006348212791123,&quot;family&quot;:&quot;Analogy or expert estimate&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;E-0-1-PROXY-BASE&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:44,&quot;name&quot;:&quot;4-Carboxyphenylboronic Acid&quot;,&quot;added&quot;:0.13264550208594572,&quot;kg&quot;:40.57005270128822,&quot;cum&quot;:0.7325581874498759,&quot;family&quot;:&quot;Academic experimental paper&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;A-LAB-I-N2-PROXY-BASE@10.1016/j.bmc.2014.10.030&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:42,&quot;name&quot;:&quot;2,3-Dichloropropiononitrile&quot;,&quot;added&quot;:0.10846422635779934,&quot;kg&quot;:33.174131880395,&quot;cum&quot;:0.10846422635780123,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2021-QFS0-N7-PROXY-BASE@CN112358426A&quot;,&quot;top&quot;:&quot;market for acrylonitrile | acrylonitrile | Cutoff, U&quot;},{&quot;n&quot;:48,&quot;name&quot;:&quot;4-Methoxycarbonylphenylboronic acid (purified)&quot;,&quot;added&quot;:0.10406013560622866,&quot;kg&quot;:31.82712658370044,&quot;cum&quot;:0.9306828332423005,&quot;family&quot;:&quot;Company/industrial data&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;D-IND-0-PRIM-BASE@Roche:LateTRL-BOM-T1/Boronic-acid&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:43,&quot;name&quot;:&quot;4-Methoxycarbonylphenylboronic acid&quot;,&quot;added&quot;:0.09406451018619863,&quot;kg&quot;:28.7699324557744,&quot;cum&quot;:0.8266226976360684,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2022-QFS0-1-PROXY-BASE@CN114262340A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:53,&quot;name&quot;:&quot;Thiophenol&quot;,&quot;added&quot;:0.05250555389367349,&quot;kg&quot;:16.058992239303077,&quot;cum&quot;:0.0525055538936742,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2018-QFS0-N2-PROXY-BASE@CN106432013B&quot;,&quot;top&quot;:&quot;market for monochlorobenzene | monochlorobenzene | Cutoff, U&quot;},{&quot;n&quot;:47,&quot;name&quot;:&quot;Tetrabutylammonium Bromide&quot;,&quot;added&quot;:0.049569237746697144,&quot;kg&quot;:15.160910518045105,&quot;cum&quot;:0.04956923774669593,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2016-QFS0-N3-PROXY-BASE@JP2016044149A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;},{&quot;n&quot;:46,&quot;name&quot;:&quot;4-Bromotoluene&quot;,&quot;added&quot;:0.024179960989833636,&quot;kg&quot;:7.395518703958998,&quot;cum&quot;:0.024179960989833462,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2016-QFS0-N4-PROXY-BASE@CN105669364A&quot;,&quot;top&quot;:&quot;treatment of spent solvent mixture, hazardous waste incineration | spent solvent mixture | Cutoff, U&quot;},{&quot;n&quot;:50,&quot;name&quot;:&quot;Tetrabutylammonium Bromide&quot;,&quot;added&quot;:0.004667369953692128,&quot;kg&quot;:1.4275300859806666,&quot;cum&quot;:0.004667369953692143,&quot;family&quot;:&quot;Patent&quot;,&quot;status&quot;:&quot;valid&quot;,&quot;code&quot;:&quot;P-LAB-2016-QFS0-1-PROXY-BASE@JP2016044149A&quot;,&quot;top&quot;:&quot;market group for electricity, medium voltage | electricity, medium voltage | Cutoff, U&quot;}];let mode='added';
+function xpos(d){if(d.status==='unresolved'||d.status==='partial_or_invalid')return .5;if(d.family.includes('Analogy')||d.family.includes('Stoichiometry'))return 1;if(d.family.includes('Company'))return 3;if(d.family.includes('LCA'))return 2.55;return 2}
+function typ(d){if(d.family.includes('Company'))return'company';if(d.family==='Patent')return'patent';if(d.family.includes('Academic'))return'academic';if(d.family.includes('LCA'))return'lca';return'weak'}
+const colors={company:'var(--viz-series-1)',patent:'var(--viz-series-2)',academic:'var(--viz-series-3)',lca:'var(--viz-series-5)',weak:'var(--viz-series-4)'},labels=new Map([[.5,'Incomplete'],[1,'Analogy / stoichiometry'],[2,'Lab/public proxy'],[2.55,'LCA study'],[3,'Industrial primary']]);
+function draw(){host.innerHTML='';const width=Math.max(320,host.getBoundingClientRect().width||720),height=width&lt;520?560:510,m={top:28,right:26,bottom:78,left:72},iw=width-m.left-m.right,ih=height-m.top-m.bottom;
+const key=mode==='added'?'added':'cum',max=mode==='added'?12:105,x=d3.scaleLinear().domain([.25,3.25]).range([0,iw]),y=d3.scaleLinear().domain([0,max]).nice().range([ih,0]),r=d3.scaleSqrt().domain([0,d3.max(data,d=&gt;d.kg)]).range([4,width&lt;520?16:22]);
+const svg=d3.select(host).append('svg').attr('viewBox',`0 0 ${width} ${height}`).attr('role','img').attr('aria-label',mode==='added'?'Activity-added climate-change contribution by evidence reliability':'Cumulative upstream climate-change contribution by evidence reliability');
+svg.append('title').text(mode==='added'?'Additive activity contributions':'Overlapping cumulative branch contributions');const g=svg.append('g').attr('transform',`translate(${m.left},${m.top})`),cut=mode==='added'?1:5;
+g.append('rect').attr('class','priority').attr('x',0).attr('y',0).attr('width',x(2.5)).attr('height',y(cut));g.append('line').attr('class','threshold').attr('x1',0).attr('x2',iw).attr('y1',y(cut)).attr('y2',y(cut));g.append('line').attr('class','threshold').attr('x1',x(2.5)).attr('x2',x(2.5)).attr('y1',0).attr('y2',ih);
+const ticks=mode==='added'?[0,1,2,4,6,8,10,12]:[0,5,20,40,60,80,100];g.append('g').attr('class','grid').call(d3.axisLeft(y).tickValues(ticks).tickSize(-iw).tickFormat(''));g.append('g').attr('class','axis').attr('transform',`translate(0,${ih})`).call(d3.axisBottom(x).tickValues([.5,1,2,2.55,3]).tickFormat(d=&gt;labels.get(d)));
+g.append('g').attr('class','axis').call(d3.axisLeft(y).tickValues(ticks).tickFormat(d=&gt;`${d}%`));g.append('text').attr('class','axis-title').attr('x',iw/2).attr('y',ih+62).attr('text-anchor','middle').text('Evidence basis → stronger and more process-specific');g.append('text').attr('class','axis-title').attr('transform','rotate(-90)').attr('x',-ih/2).attr('y',-54).attr('text-anchor','middle').text(mode==='added'?'Activity-added contribution (%)':'Cumulative branch contribution (%)');g.append('text').attr('class','priority-note').attr('x',8).attr('y',14).text('Priority: higher impact + weaker evidence');
+g.selectAll('circle').data(data).enter().append('circle').attr('class','bubble cursor-interaction').attr('cx',d=&gt;x(xpos(d))).attr('cy',d=&gt;y(d[key])).attr('r',d=&gt;r(d.kg)).attr('fill',d=&gt;colors[typ(d)]).attr('tabindex',0).attr('role','button').attr('aria-label',d=&gt;`${d.name}: ${d[key].toFixed(2)} percent`).on('click keydown',(e,d)=&gt;{if(e.type==='click'||e.key==='Enter'||e.key===' '){e.preventDefault();detail.innerHTML=`&lt;strong&gt;${d.name}&lt;/strong&gt; · ${d[key].toFixed(3)}% · ${d.kg.toLocaleString(undefined,{maximumFractionDigits:2})} kg CO₂-eq&lt;br&gt;&lt;span class=&quot;text-muted&quot;&gt;Largest immediate source: ${d.top||'n.a.'}&lt;/span&gt;&lt;br&gt;&lt;code&gt;${d.code}&lt;/code&gt;`}});
+const labs=data.filter(d=&gt;xpos(d)&lt;3&amp;&amp;d[key]&gt;=cut).sort((a,b)=&gt;b[key]-a[key]).slice(0,6);g.selectAll('.point-label').data(labs).enter().append('text').attr('class','point-label').attr('x',d=&gt;x(xpos(d))+r(d.kg)+4).attr('y',d=&gt;y(d[key])+4).text(d=&gt;d.name.length&gt;28?d.name.slice(0,26)+'…':d.name)}
+function setMode(next){mode=next;document.getElementById('added-view').className=next==='added'?'btn btn-primary':'btn';document.getElementById('cumulative-view').className=next==='cumulative'?'btn btn-primary':'btn';document.getElementById('added-view').setAttribute('aria-pressed',next==='added');document.getElementById('cumulative-view').setAttribute('aria-pressed',next==='cumulative');reconcile.hidden=next!=='added';note.textContent=next==='added'?'Activity-added contributions allocate each immediate background input and direct emission to the foreground activity where it enters. The 58 values are additive and reconcile to the final HTP10 result.':'Cumulative values include each activity and its upstream branch. They overlap across nested activities and must not be summed.';draw()}
+document.getElementById('added-view').onclick=()=&gt;setMode('added');document.getElementById('cumulative-view').onclick=()=&gt;setMode('cumulative');draw();new ResizeObserver(draw).observe(host)})();
+&lt;/script&gt;
+
+&lt;style id=&quot;codex-visualization-document-scrollbar&quot;&gt;html,body{scrollbar-width:none!important}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important}&lt;/style&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+  let lastPointerWasTouch = false;
+  let pinnedByTouch = false;
+
+  const getTrigger = (event) =&gt; {
+    for (const target of event.composedPath()) {
+      if (target?.nodeType === Node.ELEMENT_NODE) {
+        const trigger = target.closest(&quot;[data-tooltip]&quot;);
+        if (trigger) return trigger;
+      }
+    }
+    return null;
+  };
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    pinnedByTouch = false;
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handlePointer = (event) =&gt; {
+    lastPointerWasTouch =
+      event.type === &quot;pointerdown&quot; &amp;&amp; event.pointerType === &quot;touch&quot;;
+  };
+  const handleTouchClick = (event) =&gt; {
+    const isTouch = event.pointerType === &quot;touch&quot; || lastPointerWasTouch;
+    lastPointerWasTouch = false;
+    if (!isTouch || event.detail === 0) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (
+      trigger == null ||
+      !trigger.isConnected ||
+      getContent(trigger).length === 0 ||
+      (pinnedByTouch &amp;&amp; activeTrigger === trigger)
+    ) {
+      if (pinnedByTouch) {
+        closeTooltip();
+      }
+      return;
+    }
+    openTooltip(trigger);
+    pinnedByTouch = activeTrigger === trigger;
+    window.setTimeout(() =&gt; {
+      if (activeTrigger === trigger &amp;&amp; !trigger.isConnected) {
+        closeTooltip(false);
+      }
+    }, 0);
+  };
+  const handleLeave = (event) =&gt; {
+    if (pinnedByTouch) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    lastPointerWasTouch = false;
+    const trigger = getTrigger(event);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handlers = {
+    pointerover: handlePointerOpen,
+    pointerdown: handlePointer,
+    pointercancel: handlePointer,
+    click: handleTouchClick,
+    pointerout: handleLeave,
+    focusin: handleFocusIn,
+    focusout: handleLeave,
+    keydown: handleKeyDown,
+    contextmenu: handleContextMenu,
+  };
+  const roots = new Map();
+  const handledEvents = new WeakSet();
+  const handleEvent = (event) =&gt; {
+    if (handledEvents.has(event)) return;
+    handledEvents.add(event);
+    handlers[event.type](event);
+  };
+  const discoverRoots = (node) =&gt; {
+    if (node.shadowRoot) listen(node.shadowRoot);
+    for (const element of node.querySelectorAll(&quot;*&quot;)) {
+      if (element.shadowRoot) listen(element.shadowRoot);
+    }
+  };
+  const listen = (root) =&gt; {
+    if (roots.has(root)) return;
+    for (const type of Object.keys(handlers)) root.addEventListener(type, handleEvent);
+    const observer = new window.MutationObserver((records) =&gt; {
+      for (const { addedNodes } of records) {
+        for (const node of addedNodes) {
+          if (node.nodeType === Node.ELEMENT_NODE) discoverRoots(node);
+        }
+      }
+      for (const [root, cleanup] of roots) {
+        if (root.host &amp;&amp; !root.host.isConnected) {
+          cleanup();
+          roots.delete(root);
+        }
+      }
+      if (activeTrigger &amp;&amp; !activeTrigger.isConnected) closeTooltip(false);
+    });
+    observer.observe(root, { childList: true, subtree: true });
+    roots.set(root, () =&gt; {
+      observer.disconnect();
+      for (const type of Object.keys(handlers)) root.removeEventListener(type, handleEvent);
+    });
+    discoverRoots(root);
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    lastPointerWasTouch = false;
+    for (const cleanup of roots.values()) cleanup();
+    roots.clear();
+    tooltip = null;
+  };
+
+  // Events between children of one shadow root never reach the document.
+  listen(document);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-tabs&quot;&gt;
+(() =&gt; {
+  const selector = '.nav[role=&quot;tablist&quot;] [role=&quot;tab&quot;]';
+  const disabled = ':disabled,[aria-disabled=&quot;true&quot;]';
+  const selectTab = (selected) =&gt; {
+    const panelId = selected.getAttribute(&quot;aria-controls&quot;);
+    for (const tab of selected.closest('[role=&quot;tablist&quot;]').querySelectorAll('[role=&quot;tab&quot;]')) {
+      const active = tab === selected;
+      tab.classList.toggle(&quot;active&quot;, active);
+      tab.setAttribute(&quot;aria-selected&quot;, String(active));
+      const id = tab.getAttribute(&quot;aria-controls&quot;);
+      const panel = id &amp;&amp; document.getElementById(id);
+      if (panel != null) {
+        panel.hidden = id !== panelId;
+        if (!panel.hidden &amp;&amp; selected.id) {
+          panel.setAttribute(&quot;aria-labelledby&quot;, selected.id);
+        }
+      }
+    }
+  };
+  const interact = (event) =&gt; {
+    const tab = event.target?.closest?.(selector);
+    if (event.defaultPrevented || tab == null || tab.matches(disabled)) {
+      return;
+    }
+    if (event.type === &quot;click&quot;) {
+      selectTab(tab);
+      return;
+    }
+    const tabs = Array.from(
+      tab.closest('[role=&quot;tablist&quot;]').querySelectorAll('[role=&quot;tab&quot;]'),
+    ).filter((candidate) =&gt; !candidate.matches(disabled));
+    const current = tabs.indexOf(tab);
+    let next;
+    if (event.key === &quot;ArrowRight&quot; || event.key === &quot;ArrowDown&quot;) {
+      next = (current + 1) % tabs.length;
+    } else if (event.key === &quot;ArrowLeft&quot; || event.key === &quot;ArrowUp&quot;) {
+      next = (current + tabs.length - 1) % tabs.length;
+    } else if (event.key === &quot;Home&quot;) {
+      next = 0;
+    } else if (event.key === &quot;End&quot;) {
+      next = tabs.length - 1;
+    } else {
+      return;
+    }
+    event.preventDefault();
+    tabs[next].focus();
+    selectTab(tabs[next]);
+  };
+
+  for (const list of document.querySelectorAll('.nav[role=&quot;tablist&quot;]')) {
+    const selected =
+      list.querySelector('[role=&quot;tab&quot;][aria-selected=&quot;true&quot;]') ??
+      list.querySelector('[role=&quot;tab&quot;].active') ??
+      list.querySelector('[role=&quot;tab&quot;]');
+    if (selected != null) {
+      selectTab(selected);
+    }
+  }
+  document.addEventListener(&quot;click&quot;, interact);
+  document.addEventListener(&quot;keydown&quot;, interact);
+  window.addEventListener(&quot;pagehide&quot;, () =&gt; {
+    document.removeEventListener(&quot;click&quot;, interact);
+    document.removeEventListener(&quot;keydown&quot;, interact);
+  }, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+<script>(() => {
+  const frame = document.getElementById("codex-visualization");
+  if (!(frame instanceof HTMLIFrameElement)) {
+    return;
+  }
+  let viewportHeight = globalThis.innerHeight;
+  const storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([
+    globalThis.location.pathname,
+    globalThis.location.search,
+  ])}`;
+  const parseState = (serializedState) => {
+    if (
+      typeof serializedState !== "string" ||
+      new TextEncoder().encode(serializedState).length > 16 * 1024
+    ) {
+      throw new TypeError(
+        "Widget state must be a JSON object of at most 16 KiB",
+      );
+    }
+    /** @type {unknown} */
+    const state = JSON.parse(serializedState);
+    if (
+      state == null ||
+      typeof state !== "object" ||
+      Array.isArray(state) ||
+      ("imageIds" in state &&
+        (!Array.isArray(state.imageIds) || state.imageIds.length > 0))
+    ) {
+      throw new TypeError("Widget state must be a JSON object");
+    }
+    const storedState = { modelContent: null, privateContent: null, ...state };
+    const canonicalState = JSON.stringify(
+      storedState,
+      (_key, /** @type {unknown} */ value) => {
+        if (typeof value === "number" && !Number.isFinite(value)) {
+          throw new TypeError("Widget state must contain finite numbers");
+        }
+        return value;
+      },
+    );
+    if (new TextEncoder().encode(canonicalState).length > 16 * 1024) {
+      throw new TypeError(
+        "Widget state must be a JSON object of at most 16 KiB",
+      );
+    }
+    return storedState;
+  };
+  let storage = null;
+  let state = null;
+  try {
+    const localStorage = globalThis.localStorage;
+    const probeKey = `${storageKey}:probe`;
+    localStorage.setItem(probeKey, "1");
+    localStorage.removeItem(probeKey);
+    storage = localStorage;
+    const savedState = storage.getItem(storageKey);
+    if (savedState != null) {
+      try {
+        state = parseState(savedState);
+      } catch {
+        // Invalid saved state does not disable future writes.
+      }
+    }
+  } catch {
+    storage = null;
+  }
+  const initialGlobals = {
+    widgetState: state,
+    statePersistence: storage == null ? "none" : "local",
+  };
+
+  const channel = new MessageChannel();
+  channel.port1.addEventListener("message", (event) => {
+    const data = event.data;
+    if (typeof data !== "object" || data == null) {
+      return;
+    }
+    if (data.type === "widget-state-write") {
+      if (!Number.isSafeInteger(data.id) || data.id <= 0) {
+        return;
+      }
+      let ok = false;
+      try {
+        if (storage != null) {
+          const state = parseState(data.state);
+          storage.setItem(storageKey, JSON.stringify(state));
+          ok = true;
+        }
+      } catch {
+        // Storage denial, quota limits, and invalid state return a failed receipt.
+      }
+      channel.port1.postMessage({
+        type: "widget-state-result",
+        id: data.id,
+        ok,
+      });
+      return;
+    }
+    if (data.type === "height") {
+      const height = data.height;
+      if (
+        typeof height === "number" &&
+        Number.isFinite(height) &&
+        height >= 0 &&
+        height <= 10_000
+      ) {
+        frame.style.height = Math.ceil(height) + "px";
+      }
+      return;
+    }
+    if (data.type === "scroll-to") {
+      const top = data.top;
+      if (
+        typeof top === "number" &&
+        Number.isFinite(top) &&
+        top >= 0 &&
+        globalThis.navigator.userActivation?.isActive === true
+      ) {
+        globalThis.scrollTo({
+          top: Math.ceil(
+            globalThis.scrollY + frame.getBoundingClientRect().top + top,
+          ),
+        });
+      }
+      return;
+    }
+    if (data.type === "open-external") {
+      const rawHref = data.href;
+      if (typeof rawHref !== "string") {
+        return;
+      }
+      let href;
+      try {
+        const url = new URL(rawHref, document.baseURI);
+        if (url.protocol !== "https:") {
+          return;
+        }
+        href = url.href;
+      } catch {
+        return;
+      }
+      if (globalThis.navigator.userActivation?.isActive === true) {
+        const anchor = document.createElement("a");
+        anchor.href = href;
+        anchor.rel = "noopener noreferrer";
+        anchor.target = "_blank";
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+      }
+      return;
+    }
+    if (data.type === "follow-up") {
+      const prompt = data.prompt;
+      if (
+        typeof prompt !== "string" ||
+        globalThis.navigator.userActivation?.isActive !== true
+      ) {
+        return;
+      }
+      const title = data.title;
+      globalThis.prompt(typeof title === "string" ? title : prompt, prompt);
+    }
+  });
+  channel.port1.start();
+  const srcdoc = frame.dataset.srcdoc;
+  if (srcdoc == null) {
+    return;
+  }
+  globalThis.addEventListener("resize", () => {
+    const height = Number.parseFloat(frame.style.height);
+    if (!Number.isFinite(height) || height <= viewportHeight) {
+      frame.style.removeProperty("height");
+    }
+    viewportHeight = globalThis.innerHeight;
+    channel.port1.postMessage({ type: "measure" });
+  });
+  frame.addEventListener(
+    "load",
+    () => {
+      frame.contentWindow?.postMessage(
+        { type: "codex-visualization-initialize" },
+        "*",
+        [channel.port2],
+      );
+    },
+    { once: true },
+  );
+  // Match the trusted bootstrap element, not the same text in an authored title.
+  frame.srcdoc = srcdoc.replace(
+    '<script type="application/json" id="codex-visualization-widget-state">__CODEX_VISUALIZATION_WIDGET_STATE__<\/script>',
+    () =>
+      '<script type="application/json" id="codex-visualization-widget-state">' +
+      JSON.stringify(initialGlobals).replaceAll("<", "\\u003c") +
+      "<\/script>",
+  );
+  delete frame.dataset.srcdoc;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: zosurabalpin-evidence-impact
+    runtime: static
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: no-referrer
+
